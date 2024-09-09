@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import argparse
+import json
+import os
 
+# functions 
 def add_description(description) :
     print("the description", description)
 
@@ -31,6 +34,36 @@ def delete(args):
     print(args)
 
 
+def write_object_to_json(fn,data):
+    # check if file exists
+    # if file does not exist
+    file_path = '../expense-tracker/' + fn
+
+    if os.path.isfile(file_path) == False or os.stat(fn).st_size == 0 :  # if file does not already exist, or file is empty 
+        content = []
+        content.append(data)
+        with open(fn,'w') as outfile:
+            json.dump(content,outfile)
+    else: # file does exist
+        file = open(fn)
+        content = json.load(file)
+        content.append(data)
+        with open(fn, 'w') as outfile:
+            json.dump(content,outfile)
+
+
+def read_from_json(fn):
+    file_path = '../expense-tracker/' + fn
+    if os.path.isfile(file_path) == True:
+        file = open(fn)
+        data = json.load(file)
+        return data
+    else:
+        return fn + " does not exist"
+
+
+
+# main function
 def main(command_line=None):
     # instantiate a parser 
     parser = argparse.ArgumentParser(
@@ -76,8 +109,25 @@ def main(command_line=None):
     if hasattr(args, 'func'):
         args.func(args)
 
+
+
+
 if __name__ == '__main__':
     main()
+
+"""
+[
+    {
+        "name":"lemon",
+        "age":23
+    },
+    {
+        "name":"Lyra",
+        "age":21
+    }
+]
+
+"""
 
 
 
