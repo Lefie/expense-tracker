@@ -28,20 +28,29 @@ def listing_expenses(args=None):
     print("listing item1 ")
     print("listing item1 ")
 
-def summary_expense(arg=None):
-   print("some expenses")
-       
-def summary_expense_by_month(args):
-    if args.month == 0:
-        print("there is no month input")
-        print(args)
+def summary_expense(args=None):
+    print("some expenses", args)
+    month = args.month
+    data = read_from_json('data.json')
+    total_expense = 0
+    if month == None:
+        for data_obj in data:
+            total_expense += data_obj["amount"]
+        print("Total expenses: $",round(total_expense,2))
     else:
-        print(args)
-        print("this month is", args.month)
+        # a month is specified 
+        # valid the month 
+        if(month < 1 or month > 12):
+            print("please enter a valid month")
+        else:
+            month_expense = 0
+            for data_obj in data:
+                if month == int(data_obj["date"].split("/")[1]):
+                    month_expense += data_obj["amount"]
+            print("Total expenses for month ",month,"is: $",round(month_expense,2))
 
 def update(args):
     print("update")
-    print(args)
     id = args.id
     desc = args.description
     amount = args.amount

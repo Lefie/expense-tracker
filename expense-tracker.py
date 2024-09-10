@@ -28,7 +28,7 @@ def main(command_line=None):
     summary_parser = subparsers.add_parser('summary', help = "give a summary of all the expenses ")
     # nargs='?' means 0 or 1 argument
     summary_parser.add_argument('--month', nargs='?', const = 0, type=int)
-    summary_parser.set_defaults(func=helper_functions.summary_expense_by_month)
+    summary_parser.set_defaults(func=helper_functions.summary_expense)
 
     # subparser: update 
     update_parser = subparsers.add_parser('update', help="update the expenses")
