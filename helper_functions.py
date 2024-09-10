@@ -42,6 +42,27 @@ def summary_expense_by_month(args):
 def update(args):
     print("update")
     print(args)
+    id = args.id
+    desc = args.description
+    amount = args.amount
+    # make sure id is valid 
+    
+    data = read_from_json('data.json')
+    if id <= 0 or id > len(data):
+        print("please enter a valid id")
+    else:
+        for i in range(len(data)):
+            if(id == data[i]["id"]):
+                print("id and index is", id)
+                print("data obj is", data[i])
+                if desc != None:
+                    data[i]["description"] = desc
+                if amount != None:
+                    data[i]["amount"] = amount
+                with open('data.json','w') as outfile:
+                    json.dump(data,outfile)
+    
+    print("id",id,"desc",desc,"amount",amount)
 
 def delete(args):
     print("delete")
