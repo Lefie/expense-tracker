@@ -43,9 +43,7 @@ def main(command_line=None):
     delete_parser.set_defaults(func=helper_functions.delete)
 
     args = parser.parse_args(command_line)
-    # print("*****")
-    # print(args)
-    # print("*****")
+    
 
     if hasattr(args, 'func'):
         args.func(args)
@@ -57,19 +55,7 @@ def main(command_line=None):
 if __name__ == '__main__':
     main()
 
-"""
-[
-    {
-        "name":"lemon",
-        "age":23
-    },
-    {
-        "name":"Lyra",
-        "age":21
-    }
-]
 
-"""
 
 
 

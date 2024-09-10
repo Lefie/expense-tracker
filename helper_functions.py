@@ -45,7 +45,28 @@ def update(args):
 
 def delete(args):
     print("delete")
-    print(args)
+    data = read_from_json('data.json')
+    if(len(data) == 0):
+        print("it is already empty")
+    else:
+        # check if id is valid 
+        id = args.id
+        if(id <= 0 or id > len(data)):
+            print("id is not valid")
+        else:
+            index = id - 1
+        # case : remove item from middle or remove at the beginning 
+            if(id != len(data)):
+                data.pop(index)
+                i = index 
+                while i < len(data):
+                    data[i]["id"] = i + 1
+                    i += 1
+            else: # removal at the end 
+                data.pop()
+            with open('data.json','w') as outfile:
+                json.dump(data,outfile)
+    #print(args)
 
 
 def write_object_to_json(fn,data):
