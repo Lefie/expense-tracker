@@ -29,9 +29,9 @@ def listing_expenses(args=None):
     print("listing item1 ")
 
 def summary_expense(args=None):
-    print("some expenses", args)
     month = args.month
     data = read_from_json('data.json')
+    current_year = date.today().year
     total_expense = 0
     if month == None:
         for data_obj in data:
@@ -45,9 +45,12 @@ def summary_expense(args=None):
         else:
             month_expense = 0
             for data_obj in data:
-                if month == int(data_obj["date"].split("/")[1]):
-                    month_expense += data_obj["amount"]
-            print("Total expenses for month ",month,"is: $",round(month_expense,2))
+                data_year = int(data_obj["date"].split("/")[0])
+                data_month = int(data_obj["date"].split("/")[1])
+                if current_year == data_year:
+                    if month == data_month:
+                        month_expense += data_obj["amount"]
+            print("Total expenses for month ",month,"in year",current_year,"is: $",round(month_expense,2))
 
 def update(args):
     print("update")
@@ -96,7 +99,6 @@ def delete(args):
                 data.pop()
             with open('data.json','w') as outfile:
                 json.dump(data,outfile)
-    #print(args)
 
 
 def write_object_to_json(fn,data):
