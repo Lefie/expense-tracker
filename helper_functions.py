@@ -25,8 +25,13 @@ def adding_expense(args=None):
     print("adding an expense",desc,amount)
 
 def listing_expenses(args=None):
-    print("listing item1 ")
-    print("listing item1 ")
+    print("ID"+" "*10+"Date"+" "*15+"Description"+" "*18+"Amount")
+    data = read_from_json('data.json')
+    for i in range(len(data)):
+        print(str(data[i]["id"]) + " " * 10 + data[i]["date"] + " " * 10 + data[i]["description"] + " " * 15 + str(data[i]["amount"]))
+
+    
+   
 
 def summary_expense(args=None):
     month = args.month
